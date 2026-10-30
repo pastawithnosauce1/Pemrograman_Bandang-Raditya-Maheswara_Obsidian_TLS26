@@ -1,16 +1,6 @@
-/*
-    TLS - FASE 2
-    Problem 1: Eliminasi Astronot dalam Lingkaran (Josephus Problem dengan K dinamis)
-
-    Ketentuan:
-    - Hanya menggunakan library <iostream>
-    - Tidak ada function dari library lain; semua function dibuat manual
-*/
 #include <iostream>
 using namespace std;
 
-// Fungsi manual: mencari indeks astronot AKTIF (belum tereliminasi) berikutnya
-// di dalam lingkaran, dimulai tepat setelah indeks 'dariIndeks'.
 int astronotAktifBerikutnya(int dariIndeks, int N, bool tereliminasi[]) {
     int idx = dariIndeks;
     do {
@@ -42,7 +32,7 @@ int main() {
         tereliminasi[i] = false;
     }
 
-    int current = 0;     // indeks astronot nomor 1 -> perhitungan awal dimulai di sini
+    int current = 0;   
     int sisa = N;
 
     cout << "\nUrutan astronot yang dieliminasi: ";
@@ -52,15 +42,13 @@ int main() {
     }
 
     while (sisa > 1) {
-        // Majukan (K-1) langkah dari 'current' melewati astronot yang masih aktif.
-        // Mengelilingi lingkaran penuh tidak mengubah hasil, jadi cukup (K-1) mod sisa langkah.
         int target = current;
         int jumlahLangkah = (K - 1) % sisa;
         for (int langkah = 1; langkah <= jumlahLangkah; langkah++) {
             target = astronotAktifBerikutnya(target, N, tereliminasi);
         }
 
-        int nomorKeluar = target + 1;   // nomor astronot = indeks + 1
+        int nomorKeluar = target + 1;  
         cout << nomorKeluar;
 
         tereliminasi[target] = true;
@@ -70,14 +58,13 @@ int main() {
             cout << ", ";
         }
 
-        // Aturan perubahan nilai K setelah eliminasi
         if (nomorKeluar % 2 == 0) {
-            K = K + 2;   // nomor genap -> K bertambah 2
+            K = K + 2;  
         } else {
-            K = K - 1;   // nomor ganjil -> K berkurang 1
+            K = K - 1;
         }
         if (K < 2) {
-            K = 2;       // K tidak boleh kurang dari 2
+            K = 2;      
         }
 
         if (sisa >= 1) {
